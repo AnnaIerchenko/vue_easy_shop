@@ -1,0 +1,18 @@
+@import "./variables.scss";
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: inherit;
+  font-family: 'Gilroy-Light', sans-serif;   
+  color: #3c3c3c; 
+  line-height: 1;
+}
