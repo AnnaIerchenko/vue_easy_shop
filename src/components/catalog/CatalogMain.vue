@@ -67,7 +67,7 @@ import {mapActions, mapGetters} from 'vuex';
     top: 30px;
     right: 10px;
     padding: $padding;
-    border: 1px solid #958e8e;
+    border: 1px solid $color-border;
     cursor: pointer;
   }
 }

@@ -15,4 +15,28 @@ body {
   font-family: 'Gilroy-Light', sans-serif;   
   color: #3c3c3c; 
   line-height: 1;
+  @media (max-width: 470px) {
+    font-size: 12px;
+}
+}
+.btn {
+  cursor: pointer;
+  background-color: $color-special;
+  border: none;
+  padding: $padding $padding*2;
+  border-radius: $radius;
+  color: $color-light;
+  &:hover {
+    opacity: 0.8;
+  }
+  @media(max-width: 470px){
+    padding: $padding;
+    font-size: 14px;
+  }
+}
+.link {
+  color: $main-color;
+  &:hover {
+    opacity: 0.8;
+  }
 }

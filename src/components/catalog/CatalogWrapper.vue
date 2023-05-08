@@ -40,7 +40,8 @@ import {mapGetters} from 'vuex'
 
 <style lang="scss" scoped>
   .catalog-wrapper {
-    width: 900px;
+    max-width: 900px;
     margin: 0 auto;
+    height: inherit;
   }
 </style>

@@ -3,7 +3,7 @@
     <div class="catalog-cart-item__wrap">
     <img 
       class="catalog-cart-item__image"
-      :src="require('../assets/images/' + cart_item_data.image)"
+      :src="require('../../assets/images/' + cart_item_data.image)"
       alt="img"      
     />
   </div>
@@ -14,9 +14,19 @@
     </div>
     <div class="catalog-cart-item__quantity">
       <p>qty</p>
-      <p>{{ cart_item_data.quantity }}</p>
+      <p>
+        <span 
+          class="catalog-cart-item__btn"
+          @click="decrementItem"
+        >-</span>
+        {{ cart_item_data.quantity }}
+        <span 
+          class="catalog-cart-item__btn"
+          @click="incrementItem"
+        >+</span>
+      </p>
     </div>
-    <button @click="deleteFromCart">
+    <button class="btn" @click="deleteFromCart">
       delete
     </button>
   </div>
@@ -35,6 +45,12 @@
       }
     },
     methods: {
+      decrementItem(){
+        this.$emit('decrementItem')
+      },
+      incrementItem(){
+        this.$emit('incrementItem')
+      },
       deleteFromCart() {
         this.$emit('deleteFromCart')
       }
@@ -60,6 +76,12 @@
     width: 100%;
     object-fit: cover;
     object-position: center;
+  }
+  &__btn {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.6;
+    }
   }
  }
 </style>

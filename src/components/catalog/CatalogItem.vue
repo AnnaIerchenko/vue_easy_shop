@@ -3,14 +3,14 @@
     <div class="catalog-item__image-wrap">
     <img 
       class="catalog-item__image"
-      :src="require('../assets/images/' + product_data.image)"
+      :src="require('../../assets/images/' + product_data.image)"
       alt="img"      
     />
   </div>
     <p class="catalog-item__name">{{ product_data.name }}</p>
     <p class="catalog-item__price">Price: {{ product_data.price }} $</p>
     <button 
-      class="catalog-item__btn"
+      class="catalog-item__btn btn"
       @click="addToCart"
     >
       Add to cart</button>
@@ -44,6 +44,7 @@
   padding: $padding*2;
   margin: 0 auto $margin*2;
   min-width: 150px;
+ 
   @media(max-width: 670px) {
     padding: $padding;
   }
