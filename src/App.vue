@@ -1,6 +1,5 @@
 <template>
 <div class="app">
-  hellllooo
   <catalog-wrapper />
 </div>
 </template>

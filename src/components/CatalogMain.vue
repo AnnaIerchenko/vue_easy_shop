@@ -1,5 +1,8 @@
 <template>
   <div class="catalog">
+    <router-link :to="{name: 'cart'}">
+      <div class="catalog__link">Cart: {{ CART.length }}</div>
+    </router-link>
     <h1>Catalog</h1>
     <div class="catalog__list">
       <catalog-item 
@@ -28,7 +31,8 @@ import {mapActions, mapGetters} from 'vuex';
     },
     computed: {
       ...mapGetters([
-        'PRODUCTS'
+        'PRODUCTS',
+        'CART'
       ])
     },
     methods: {
@@ -46,14 +50,25 @@ import {mapActions, mapGetters} from 'vuex';
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .catalog {
   padding-top: 64px;
+  @media (max-width: 470px){
+    padding-top: 80px;
+  }
   &__list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+  }
+  &__link {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    padding: $padding;
+    border: 1px solid #958e8e;
+    cursor: pointer;
   }
 }
 </style>
