@@ -9,11 +9,15 @@
     <catalog-notification 
       :messages="messages"
     />
+    <div class="catalog__filters">
     <catalog-select 
       :options="categories"
       @select="sortByCategories"
       :selected="selected"
     />
+    <catalog-search   
+      />
+    </div>
     <div class="catalog__list">
       <catalog-item 
         v-for="product in filteredProducts"
@@ -30,14 +34,16 @@ import CatalogItem from './CatalogItem.vue';
 import {mapActions, mapGetters} from 'vuex';
 import CatalogSelect from './CatalogSelect.vue'
 import CatalogNotification from '../notification/CatalogNotification.vue'
+import CatalogSearch from './CatalogSearch.vue';
 
   export default {
     name: 'CatalogMain',
     components: {
-      CatalogItem,
-      CatalogSelect,
-      CatalogNotification
-    },
+    CatalogItem,
+    CatalogSelect,
+    CatalogNotification,
+    CatalogSearch
+},
     data(){
       return {
         categories: [
@@ -53,7 +59,8 @@ import CatalogNotification from '../notification/CatalogNotification.vue'
     computed: {
       ...mapGetters([
         'PRODUCTS',
-        'CART'
+        'CART',
+        'SEARCH_QUERY'
       ]),
       filteredProducts(){
         if(this.sortedProducts.length){
@@ -74,17 +81,33 @@ import CatalogNotification from '../notification/CatalogNotification.vue'
           let timeStamp = Date.now(toString())
           this.messages.unshift({name: "The product has been added", id: timeStamp})
         })
+      },
+      sortByCategories(category){
+        this.sortedProducts = []
+        let select = this
+        this.PRODUCTS.map(function(item) {
+          if(category.name === item.category){
+            select.sortedProducts.push(item)
+          }
+        })
+        this.selected = category.name
+      },
+      filteredByName(value){
+        this.sortedProducts = [...this.PRODUCTS]
+        this.selected = "All"
+        if(value){
+          this.sortedProducts = this.sortedProducts.filter((item) => {
+            return item.name.toLowerCase().includes(value.toLowerCase())
+        })
+        } else {
+          this.sortedProducts = this.PRODUCTS
+        }
       }
     },
-    sortByCategories(category){
-      this.sortedProducts = []
-      let select = this
-      this.PRODUCTS.map(function(item) {
-        if(category.name === item.category){
-          select.sortedProducts.push(item)
-        }
-      })
-      this.selected = category.name
+    watch: {
+      SEARCH_QUERY(){
+        this.filteredByName(this.SEARCH_QUERY)
+      }
     },
     mounted() {
       this.GET_PRODUCTS_FROM_API()
@@ -111,6 +134,12 @@ import CatalogNotification from '../notification/CatalogNotification.vue'
     padding: $padding;
     border: 1px solid $color-border;
     cursor: pointer;
+  }
+  &__filters{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
   }
 }
 </style>

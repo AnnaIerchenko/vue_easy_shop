@@ -6,7 +6,8 @@ import axios from "axios";
 const store = createStore({
   state: {
     products: [],
-    cart: []
+    cart: [],
+    searchQuery: ''
   },
   mutations: {
     SET_PRODUCTS_TO_STATE: (state, products) => {
@@ -39,6 +40,9 @@ const store = createStore({
         state.cart[index].quantity--
       }
     },
+    SET_SEARCH_QUERY: (state, value) => {
+      state.searchQuery = value
+    }
   },
   actions: {
     GET_PRODUCTS_FROM_API({commit}){
@@ -66,6 +70,9 @@ const store = createStore({
     },
     DELETE_FROM_CART({commit}, index){
       commit('REMOVE_FROM_CART', index)
+    },
+    GET_SEARCH_QUERY({commit}, value){
+      commit('SET_SEARCH_QUERY', value)
     }
   },
   getters: {
@@ -74,6 +81,9 @@ const store = createStore({
     },
     CART(state) {
       return state.cart
+    },
+    SEARCH_QUERY(state){
+      return state.searchQuery
     }
   }
 })
